@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import filedialog
 import os
 import zipfile
 
@@ -17,11 +18,18 @@ class App:
         self.ruta = Entry(ventana)
         self.ruta.focus()
         self.ruta.grid(row=1,column=0, sticky=W + E)
+        ttk.Button(ventana, text='Buscar', command=self.buscar_carpeta).grid(
+            row=1, column=1)
         ttk.Button(ventana, text='Empaquetar', command=self.crear_lista).grid(
             row=2, column=0, columnspan=2, sticky=W + E)
         self.mensaje = Label(ventana, text='', fg='green')
         self.mensaje.grid(row=3, column=0, columnspan=2, sticky=W + E)
         self.lista = []
+
+    def buscar_carpeta(self):
+        ruta_carpeta = filedialog.askdirectory()
+        self.ruta.delete(0, END)
+        self.ruta.insert(END, ruta_carpeta)
 
     def crear_lista(self):
         """Busca todos los archivos en la carpeta
